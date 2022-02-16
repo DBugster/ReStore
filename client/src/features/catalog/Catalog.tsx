@@ -11,6 +11,7 @@ export default function Catalog() {
         .then(data => setProducts(data))
     }, [])
   
+    /*
     function addProduct() {
       setProducts(prevState => [...prevState,
       {
@@ -22,6 +23,7 @@ export default function Catalog() {
         pictureUrl: 'http://picsum.photos/200'
       }])
     }
+    */
 
     return (
         <>
