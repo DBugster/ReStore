@@ -1,6 +1,7 @@
 import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useStoreContext } from "../context/StoreContext";
 
 interface Prop {
     darkMode: boolean;
@@ -26,6 +27,9 @@ const navStyles = {
 }
 
 export default function Header({ darkMode, handleTheme }: Prop) {
+    const {basket} = useStoreContext();
+    const itemsCount = basket?.items.reduce((acc, item) => acc + item.quantity, 0);
+    
     return (
         <AppBar position='static' sx={{ mb: 4 }}>
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -47,8 +51,8 @@ export default function Header({ darkMode, handleTheme }: Prop) {
                     ))}
                 </List>
                 <Box display='flex' alignItems='center'>
-                    <IconButton size='large' sx={{ color: 'inherit' }}>
-                        <Badge badgeContent={4} color='secondary'>
+                    <IconButton component={Link} to='/basket' size='large' sx={{ color: 'inherit' }}>
+                        <Badge badgeContent={itemsCount} color='secondary'>
                             <ShoppingCart />
                         </Badge>
                     </IconButton>
